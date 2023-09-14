@@ -10,8 +10,12 @@ public class AccountSercviceImplementation implements AccountService {
         this.accountDAO = new AccountDAOmySQLImplementation();
 
 
-        public Account createAccount(){
+        public createAccount(){
             return null;
+        }
+
+        public verifyAccount(){
+            
         }
     }
 
