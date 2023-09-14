@@ -80,8 +80,8 @@ public class SocialMediaController {
     }
 
     private void getAllMessageByUser(Context ctx) {
+        
 
-        ctx.json("sample text");
     }
 
     private void updateMessageById(Context ctx) {
