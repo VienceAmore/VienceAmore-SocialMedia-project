@@ -16,8 +16,8 @@ public class AccountDAO {
 
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(2, account.getUsername());
-            statement.setString(3, account.getPassword());
+            statement.setString(1, account.getUsername());
+            statement.setString(2, account.getPassword());
 
             statement.executeUpdate();
 
@@ -34,29 +34,23 @@ public class AccountDAO {
 
     //read
     public boolean verifyAccount(Account account){
-        /*try (Connection connection = ConnectionUtil.getConnection()) {
-            String sql = "SELECT  account(username, password) VALUES (?,?)";
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(2, account.getUsername());
-            statement.setString(3, account.getPassword());
+            statement.setString(1, account.getUsername());
+            statement.setString(2, account.getPassword());
 
-            statement.executeUpdate();
+            int result = statement.executeUpdate();
 
-            ResultSet keys = statement.getGeneratedKeys();
-            if (keys.next()) {
-                return new Account(keys.getInt(1), account.getUsername(), account.getPassword());
+            if (result != 0) {
+                return true;
             }
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }*/
+        }
         return false;
-
     }
-
-    //update 
-
-    //delete
 }

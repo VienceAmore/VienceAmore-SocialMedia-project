@@ -1,6 +1,9 @@
 package Controller;
 
 import java.util.List;
+
+import Model.Account;
+import Model.Message;
 import Service.AccountSercviceImplementation;
 import Service.AccountService;
 import Service.MessageService;
@@ -59,7 +62,7 @@ public class SocialMediaController {
     private void addMessage(Context ctx) {
         Model.Message message = ctx.bodyAsClass(Message.class);
 
-        Model.Message newMessage = MessageService.addMessage(message);
+        Model.Message newMessage = messageService.addMessage(message);
 
         if (newMessage != null) {
             ctx.json(newMessage);
@@ -78,7 +81,7 @@ public class SocialMediaController {
 
         int id = Integer.parseInt(ctx.pathParam("id"));
 
-        Model.Message message = MessageService.getMessageById(id);
+        Model.Message message = messageService.getMessageById(id);
         ctx.json(message);
 
     }
@@ -98,7 +101,7 @@ public class SocialMediaController {
     private void updateMessageById(Context ctx) {
         Model.Message message = ctx.bodyAsClass(Message.class);
 
-        boolean result = MessageService.updateMessageById(message);
+        boolean result = messageService.updateMessageById(message);
         
         if (result) {
             ctx.status(200);
@@ -123,7 +126,7 @@ public class SocialMediaController {
     private void createAccount(Context ctx){
         Model.Account account = ctx.bodyAsClass(Account.class);
 
-        Model.Account newAccount = AccountService.createAccount(account);
+        Model.Account newAccount = accountService.createAccount(account);
 
         if (newAccount != null) {
             ctx.json(newAccount);
@@ -137,7 +140,7 @@ public class SocialMediaController {
     private void verifyAccount(Context ctx){
         Model.Account account = ctx.bodyAsClass(Account.class);
 
-        boolean result = AccountService.verifyAccount(account);
+        boolean result = accountService.verifyAccount(account);
 
         if (result) {
             ctx.json(account);
