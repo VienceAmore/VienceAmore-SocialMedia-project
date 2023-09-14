@@ -19,8 +19,7 @@ public class MessageServiceImplementation implements MessageService {
 
     @Override
     public Message addMessage(Message message) {
-        
-        if(!message.getMessage_text().isEmpty() && (message.getMessage_text().length() <= 255) && existingPostedBy(message)) 
+        if(!message.getMessage_text().isEmpty() && (message.getMessage_text().length() <= 254) && existingPostedBy(message)) 
         {
             return messageDAO.addMessage(message);
         }
@@ -52,7 +51,7 @@ public class MessageServiceImplementation implements MessageService {
             return false;
         }
 
-        if(!message.getMessage_text().isEmpty() && message.getMessage_text().length() <= 255)
+        if(!message.getMessage_text().isEmpty() && message.getMessage_text().length() <= 254)
         {
             return messageDAO.updateMessageById(message);
         }
