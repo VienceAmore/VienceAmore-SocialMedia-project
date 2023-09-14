@@ -40,8 +40,7 @@ public class MessageServiceImplementation implements MessageService {
 
     @Override
     public boolean updateMessageById(Message message) {
-        //the message id already exists and the new message_text is not blank and is not over 255 characters.
-
+        
         Message existingMessage = messageDAO.getMessageById(message.getMessage_id());
 
         if (existingMessage == null) {
@@ -50,7 +49,7 @@ public class MessageServiceImplementation implements MessageService {
 
         if(!message.getMessage_text().isEmpty() && message.getMessage_text().length() <= 255)
         {
-            return messageDAO.updateMessageById(message.getMessage_id());
+            return messageDAO.updateMessageById(message);
         }
         return false;
     }
