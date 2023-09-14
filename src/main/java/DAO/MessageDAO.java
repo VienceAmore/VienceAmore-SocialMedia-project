@@ -16,11 +16,11 @@ public class MessageDAO {
     //create 
     public Message addMessage(Message message){
         try (Connection connection = ConnectionUtil.getConnection()) {
-            String sql = "INSERT INTO message(message_id, posted_by, message_text, time_posted_epoch) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO message(posted_by, message_text, time_posted_epoch) VALUES (?,?,?)";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
-            statement.setInt(1, message.getMessage_id());
+            //statement.setInt(1, message.getMessage_id());
             statement.setInt(2, message.getPosted_by());
             statement.setString(3, message.getMessage_text());
             statement.setLong(4, message.getTime_posted_epoch());

@@ -12,15 +12,18 @@ public class AccountSercviceImplementation implements AccountService {
     }
 
     @Override
-    public Account createAccount() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createAccount'");
+    public Account createAccount(Account account) {
+        if(!account.getUsername().isEmpty() && account.getPassword().length() >= 4 )//account.getUsername doesn`t already exist
+        {
+            return accountDAO.createAccount(account);
+        }
+        return null;
     }
 
     @Override
     public Account verifyAccount() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'verifyAccount'");
+        // TODO + check
+        return null;
     }
 
     
