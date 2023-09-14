@@ -1,8 +1,12 @@
 package Service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import DAO.MessageDAO;
 import Model.Message;
+import Util.ConnectionUtil;
 
 public class MessageServiceImplementation implements MessageService {
 
@@ -15,7 +19,7 @@ public class MessageServiceImplementation implements MessageService {
     @Override
     public Message addMessage(Message message) {
         
-        if(!message.getMessage_text().isEmpty() && (message.getMessage_text().length() <= 255) ) //&& message.getPosted_by())
+        if(!message.getMessage_text().isEmpty() && (message.getMessage_text().length() <= 255) && existingPostedBy(message)) 
         {
             return messageDAO.addMessage(message);
         }
@@ -57,5 +61,24 @@ public class MessageServiceImplementation implements MessageService {
     @Override
     public boolean deleteMessageById(int id){
         return messageDAO.deleteMessageById(id);
+    }
+
+    public boolean existingPostedBy(Message message){
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            String sql = "SELECT * FROM message WHERE posted_by = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, message.getPosted_by());
+
+            int result = statement.executeUpdate();
+            if(result != 0)
+                return true;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return false;
     }
 }

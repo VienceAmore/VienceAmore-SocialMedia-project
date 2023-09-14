@@ -117,10 +117,10 @@ public class SocialMediaController {
         Model.Message deletedMessage = messageService.getMessageById(id);
         boolean result = messageService.deleteMessageById(id);
         
-        ctx.status(200);
         if(result)
             ctx.json(deletedMessage);
         else ctx.json("");
+        ctx.status(200);
     }
 
     private void createAccount(Context ctx){

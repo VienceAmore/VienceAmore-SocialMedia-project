@@ -20,7 +20,6 @@ public class MessageDAO {
 
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            //statement.setInt(1, message.getMessage_id());
             statement.setInt(2, message.getPosted_by());
             statement.setString(3, message.getMessage_text());
             statement.setLong(4, message.getTime_posted_epoch());
@@ -31,7 +30,6 @@ public class MessageDAO {
             if (keys.next()) {
                 return new Message(keys.getInt(1), message.getPosted_by(), message.getMessage_text(), message.getTime_posted_epoch());
             }
-
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
@@ -54,7 +52,6 @@ public class MessageDAO {
         
                 messageList.add(new Message(message_id, posted_by, message_text, time_posted_epoch));
             }
-        
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -96,7 +93,6 @@ public class MessageDAO {
         
                 messageListByUser.add(new Message(message_id, posted_by, message_text, time_posted_epoch));
             }
-        
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -124,7 +120,6 @@ public class MessageDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
         return false;
     }
 
@@ -146,9 +141,4 @@ public class MessageDAO {
         }
         return false;
     }
-
-    public List<Message> getMessage_text() {
-        return null;
-    }
-
 }

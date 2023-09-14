@@ -1,7 +1,11 @@
 package Service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import DAO.AccountDAO;
 import Model.Account;
+import Util.ConnectionUtil;
 
 public class AccountSercviceImplementation implements AccountService {
 
@@ -13,7 +17,7 @@ public class AccountSercviceImplementation implements AccountService {
 
     @Override
     public Account createAccount(Account account) {
-        if(!account.getUsername().isEmpty() && account.getPassword().length() >= 4 )//account.getUsername doesn`t already exist
+        if(!account.getUsername().isEmpty() && account.getPassword().length() >= 4 && usernameExist(account))
         {
             return accountDAO.createAccount(account);
         }
@@ -25,5 +29,24 @@ public class AccountSercviceImplementation implements AccountService {
         return accountDAO.verifyAccount(account);
     }
 
+    public boolean usernameExist(Account account)
+    {
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            String sql = "SELECT * FROM account WHERE username = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, account.getUsername());
+
+            int result = statement.executeUpdate();
+            if(result == 0)
+                return true;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return false;
+    }
     
 }
