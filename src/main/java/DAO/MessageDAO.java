@@ -34,6 +34,7 @@ public class MessageDAO {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return null;
         }
         return null;
     }

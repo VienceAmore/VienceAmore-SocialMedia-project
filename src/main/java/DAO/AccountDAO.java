@@ -16,7 +16,6 @@ public class AccountDAO {
 
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            //statement.setInt(1, account.getAccount_id());
             statement.setString(2, account.getUsername());
             statement.setString(3, account.getPassword());
 

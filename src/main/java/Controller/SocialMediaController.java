@@ -51,14 +51,13 @@ public class SocialMediaController {
      */
 
     private void addMessage(Context ctx) {
-        Message message = ctx.bodyAsClass(Message.class);
+        Model.Message message = ctx.bodyAsClass(Message.class);
 
-        // call relevant service method so it can make decisions and return info needed
         Model.Message newMessage = MessageService.addMessage(message);
 
-        // with info returned, send response
         if (newMessage != null) {
             ctx.json(newMessage);
+            ctx.status(200);
         } else {
             ctx.status(400);
         }
@@ -73,24 +72,32 @@ public class SocialMediaController {
 
         int id = Integer.parseInt(ctx.pathParam("id"));
 
-        // call relevant service method so it can make decisions and return info needed
         Model.Message message = MessageService.getMessageById(id);
         ctx.json(message);
 
     }
 
     private void getAllMessageByUser(Context ctx) {
-        
+        Model.Message message = ctx.bodyAsClass(Message.class);
 
+        List<Model.Message> messageByUserList = messageService.getAllMessageByUser(message.getPosted_by());
+
+        ctx.status(200);
+        if(!messageByUserList.isEmpty())
+            ctx.json(messageByUserList);
+        else 
+            ctx.json("");
     }
 
     private void updateMessageById(Context ctx) {
-        Message message = ctx.bodyAsClass(Message.class);
+        Model.Message message = ctx.bodyAsClass(Message.class);
 
         boolean result = MessageService.updateMessageById(message);
         
-        if (!result) {
-            ctx.result("Error: message could not be updated");
+        if (result) {
+            ctx.status(200);
+            ctx.json(message);
+        }else{
             ctx.status(400);
         }
     }
