@@ -33,7 +33,26 @@ public class AccountDAO {
     }
 
     //read
-    public void verifyAccount(){
+    public boolean verifyAccount(Account account){
+        /*try (Connection connection = ConnectionUtil.getConnection()) {
+            String sql = "SELECT  account(username, password) VALUES (?,?)";
+
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(2, account.getUsername());
+            statement.setString(3, account.getPassword());
+
+            statement.executeUpdate();
+
+            ResultSet keys = statement.getGeneratedKeys();
+            if (keys.next()) {
+                return new Account(keys.getInt(1), account.getUsername(), account.getPassword());
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }*/
+        return false;
 
     }
 

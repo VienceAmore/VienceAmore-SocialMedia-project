@@ -21,9 +21,8 @@ public class AccountSercviceImplementation implements AccountService {
     }
 
     @Override
-    public Account verifyAccount() {
-        // TODO + check
-        return null;
+    public boolean verifyAccount(Account account) {
+        return accountDAO.verifyAccount(account);
     }
 
     

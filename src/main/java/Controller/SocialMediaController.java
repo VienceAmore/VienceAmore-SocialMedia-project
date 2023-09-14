@@ -42,6 +42,12 @@ public class SocialMediaController {
 
         app.delete("messages/{message_id}", this::deleteMessageById);
 
+        //account
+
+        app.post("/register", this::createAccount);
+
+        app.post("/login", this::verifyAccount);
+
         return app;
     }
 
@@ -112,6 +118,34 @@ public class SocialMediaController {
         if(result)
             ctx.json(deletedMessage);
         else ctx.json("");
+    }
+
+    private void createAccount(Context ctx){
+        Model.Account account = ctx.bodyAsClass(Account.class);
+
+        Model.Account newAccount = AccountService.createAccount(account);
+
+        if (newAccount != null) {
+            ctx.json(newAccount);
+            ctx.status(200);
+        } else {
+            ctx.status(400);
+        }
+
+    }
+
+    private void verifyAccount(Context ctx){
+        Model.Account account = ctx.bodyAsClass(Account.class);
+
+        boolean result = AccountService.verifyAccount(account);
+
+        if (result) {
+            ctx.json(account);
+            ctx.status(200);
+        } else {
+            ctx.status(401);
+        }
+
     }
 
 }
