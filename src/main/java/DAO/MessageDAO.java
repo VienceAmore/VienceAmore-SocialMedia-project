@@ -1,6 +1,6 @@
 package DAO;
 
-import java.beans.Statement;
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ public class MessageDAO {
         try (Connection connection = ConnectionUtil.getConnection()) {
             String sql = "INSERT INTO message(posted_by, message_text, time_posted_epoch) VALUES (?,?,?)";
 
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             //statement.setInt(1, message.getMessage_id());
             statement.setInt(2, message.getPosted_by());
