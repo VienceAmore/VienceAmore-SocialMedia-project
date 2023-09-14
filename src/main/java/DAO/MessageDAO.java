@@ -49,7 +49,7 @@ public class MessageDAO {
                 int message_id = rs.getInt("message_id");
                 int posted_by = rs.getInt("posted_by");
                 String message_text = rs.getString("message_text");
-                int time_posted_epoch = rs.getInt("time_posted_epoch");
+                long time_posted_epoch = rs.getLong("time_posted_epoch");
         
                 messageList.add(new Message(message_id, posted_by, message_text, time_posted_epoch));
             }
@@ -71,7 +71,7 @@ public class MessageDAO {
                 int message_id = rs.getInt("message_id");
                 int posted_by = rs.getInt("posted_by");
                 String message_text = rs.getString("message_text");
-                int time_posted_epoch = rs.getInt("time_posted_epoch");
+                long time_posted_epoch = rs.getLong("time_posted_epoch");
         
                 return new Message(message_id, posted_by, message_text, time_posted_epoch);
             }
@@ -91,7 +91,7 @@ public class MessageDAO {
                 int message_id = rs.getInt("message_id");
                 int posted_by = rs.getInt("posted_by");
                 String message_text = rs.getString("message_text");
-                int time_posted_epoch = rs.getInt("time_posted_epoch");
+                long time_posted_epoch = rs.getLong("time_posted_epoch");
         
                 messageListByUser.add(new Message(message_id, posted_by, message_text, time_posted_epoch));
             }
@@ -104,16 +104,16 @@ public class MessageDAO {
     }
 
     //update
-    public boolean updateMessageById(Message message){
+    public boolean updateMessageById(int i){
         
         try (Connection connection = ConnectionUtil.getConnection()) {
             String sql = "UPDATE message SET posted_by = ?, message_text = ?, time_posted_epoch = ? WHERE message_id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setInt(1, message.getPosted_by());
-            ps.setString(2, message.getMessage_text());
-            ps.setLong(3, message.getTime_posted_epoch());
-            ps.setInt(4, message.getMessage_id());
+            ps.setInt(1, i.getPosted_by());
+            ps.setString(2, i.getMessage_text());
+            ps.setLong(3, i.getTime_posted_epoch());
+            ps.setInt(4, i.getMessage_id());
 
             int numberOfUpdatedRows = ps.executeUpdate();
 
@@ -144,6 +144,10 @@ public class MessageDAO {
             ex.printStackTrace();
         }
         return false;
+    }
+
+    public List<Message> getMessage_text() {
+        return null;
     }
 
 }
