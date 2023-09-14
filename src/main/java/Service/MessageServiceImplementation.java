@@ -2,6 +2,7 @@ package Service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import DAO.MessageDAO;
@@ -64,15 +65,16 @@ public class MessageServiceImplementation implements MessageService {
     }
 
     public boolean existingPostedBy(Message message){
-        try (Connection connection = ConnectionUtil.getConnection()) {
+        try{
+            Connection connection = ConnectionUtil.getConnection();
             String sql = "SELECT * FROM message WHERE posted_by = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
-
             statement.setInt(1, message.getPosted_by());
 
-            int result = statement.executeUpdate();
-            if(result != 0)
+            ResultSet result = statement.executeQuery();
+
+            if(result.next())
                 return true;
 
         } catch (SQLException ex) {

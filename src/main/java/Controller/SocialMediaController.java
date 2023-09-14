@@ -63,6 +63,7 @@ public class SocialMediaController {
         Model.Message message = ctx.bodyAsClass(Message.class);
 
         Model.Message newMessage = messageService.addMessage(message);
+        System.out.println(newMessage);
 
         if (newMessage != null) {
             ctx.json(newMessage);
@@ -79,11 +80,16 @@ public class SocialMediaController {
 
     private void getMessageById(Context ctx) {
 
-        int id = Integer.parseInt(ctx.pathParam("id"));
+        int id = Integer.parseInt(ctx.pathParam("message_id"));
 
         Model.Message message = messageService.getMessageById(id);
-        ctx.json(message);
 
+        ctx.status(200);
+        if(message != null)
+        {
+            ctx.json(message);
+        }
+        else ctx.json("");
     }
 
     private void getAllMessageByUser(Context ctx) {
@@ -112,7 +118,7 @@ public class SocialMediaController {
     }
 
     private void deleteMessageById(Context ctx) {
-        int id = Integer.parseInt(ctx.pathParam("id"));
+        int id = Integer.parseInt(ctx.pathParam("message_id"));
 
         Model.Message deletedMessage = messageService.getMessageById(id);
         boolean result = messageService.deleteMessageById(id);
@@ -134,7 +140,6 @@ public class SocialMediaController {
         } else {
             ctx.status(400);
         }
-
     }
 
     private void verifyAccount(Context ctx){

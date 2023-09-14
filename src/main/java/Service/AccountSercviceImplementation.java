@@ -31,7 +31,8 @@ public class AccountSercviceImplementation implements AccountService {
 
     public boolean usernameExist(Account account)
     {
-        try (Connection connection = ConnectionUtil.getConnection()) {
+        try{
+            Connection connection = ConnectionUtil.getConnection();
             String sql = "SELECT * FROM account WHERE username = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);

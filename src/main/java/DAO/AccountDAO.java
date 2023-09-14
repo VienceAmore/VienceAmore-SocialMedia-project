@@ -11,7 +11,8 @@ import java.sql.Statement;
 public class AccountDAO {
     //create
     public Account createAccount(Account account){
-        try (Connection connection = ConnectionUtil.getConnection()) {
+        try{
+            Connection connection = ConnectionUtil.getConnection();
             String sql = "INSERT INTO account(username, password) VALUES (?,?)";
 
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -34,7 +35,8 @@ public class AccountDAO {
 
     //read
     public boolean verifyAccount(Account account){
-        try (Connection connection = ConnectionUtil.getConnection()) {
+        try{
+            Connection connection = ConnectionUtil.getConnection();
             String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
