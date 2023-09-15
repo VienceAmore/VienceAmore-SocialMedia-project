@@ -2,6 +2,7 @@ package Service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import DAO.AccountDAO;
 import Model.Account;
@@ -19,6 +20,7 @@ public class AccountSercviceImplementation implements AccountService {
     public Account createAccount(Account account) {
         if(!account.getUsername().isEmpty() && account.getPassword().length() >= 4 && usernameExist(account))
         {
+            System.out.println("Inside check ready to create");
             return accountDAO.createAccount(account);
         }
         return null;
@@ -39,8 +41,8 @@ public class AccountSercviceImplementation implements AccountService {
 
             statement.setString(1, account.getUsername());
 
-            int result = statement.executeUpdate();
-            if(result == 0)
+            ResultSet result = statement.executeQuery();
+            if(!result.next())
                 return true;
 
         } catch (SQLException ex) {
