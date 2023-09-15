@@ -37,16 +37,16 @@ public class AccountDAO {
     public boolean verifyAccount(Account account){
         try{
             Connection connection = ConnectionUtil.getConnection();
-            String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
 
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setString(1, account.getUsername());
             statement.setString(2, account.getPassword());
 
-            int result = statement.executeUpdate();
+            boolean result = statement.execute();
 
-            if (result != 0) {
+            if (result) {
                 return true;
             }
 

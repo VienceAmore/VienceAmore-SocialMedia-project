@@ -43,9 +43,10 @@ public class MessageServiceImplementation implements MessageService {
     }
 
     @Override
-    public boolean updateMessageById(Message message) {
+    public boolean updateMessageById(int id, Message message) {
         
-        Message existingMessage = messageDAO.getMessageById(message.getMessage_id());
+        System.out.println("ID " + id);
+        Message existingMessage = messageDAO.getMessageById(id);
 
         if (existingMessage == null) {
             return false;
@@ -53,7 +54,8 @@ public class MessageServiceImplementation implements MessageService {
 
         if(!message.getMessage_text().isEmpty() && message.getMessage_text().length() <= 254)
         {
-            return messageDAO.updateMessageById(message);
+            System.out.println("INSIDE ALL CHECKS!");
+            return messageDAO.updateMessageById(id, message);
         }
         return false;
     }

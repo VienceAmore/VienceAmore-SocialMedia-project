@@ -13,7 +13,7 @@ public interface MessageService {
 
     List<Message> getAllMessageByUser(int userId);
 
-    boolean updateMessageById(Message message);
+    boolean updateMessageById(int id, Message message);
     
     boolean deleteMessageById(int id);
 

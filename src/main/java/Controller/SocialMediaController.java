@@ -93,9 +93,10 @@ public class SocialMediaController {
     }
 
     private void getAllMessageByUser(Context ctx) {
-        Model.Message message = ctx.bodyAsClass(Message.class);
+        //Model.Message message = ctx.bodyAsClass(Message.class);
+        int id = Integer.parseInt(ctx.pathParam("account_id"));
 
-        List<Model.Message> messageByUserList = messageService.getAllMessageByUser(message.getPosted_by());
+        List<Model.Message> messageByUserList = messageService.getAllMessageByUser(id);
 
         ctx.status(200);
         if(!messageByUserList.isEmpty())
@@ -106,8 +107,9 @@ public class SocialMediaController {
 
     private void updateMessageById(Context ctx) {
         Model.Message message = ctx.bodyAsClass(Message.class);
+        int id = Integer.parseInt(ctx.pathParam("message_id"));
 
-        boolean result = messageService.updateMessageById(message);
+        boolean result = messageService.updateMessageById(id, message);
         
         if (result) {
             ctx.status(200);
@@ -131,8 +133,8 @@ public class SocialMediaController {
 
     private void createAccount(Context ctx){
         Model.Account account = ctx.bodyAsClass(Account.class);
-
         Model.Account newAccount = accountService.createAccount(account);
+        System.out.println("CREATE ACCOUNT: " + newAccount);
 
         if (newAccount != null) {
             ctx.json(newAccount);
