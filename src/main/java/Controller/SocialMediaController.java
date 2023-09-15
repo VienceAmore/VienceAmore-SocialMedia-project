@@ -1,5 +1,6 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Model.Account;
@@ -102,7 +103,10 @@ public class SocialMediaController {
         if(!messageByUserList.isEmpty())
             ctx.json(messageByUserList);
         else 
-            ctx.json("");
+        {
+            ctx.json(new ArrayList<Model.Message>());
+            System.out.println("Null list");
+        }
     }
 
     private void updateMessageById(Context ctx) {
