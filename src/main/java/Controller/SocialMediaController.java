@@ -64,7 +64,6 @@ public class SocialMediaController {
         Model.Message message = ctx.bodyAsClass(Message.class);
 
         Model.Message newMessage = messageService.addMessage(message);
-        System.out.println(newMessage);
 
         if (newMessage != null) {
             ctx.json(newMessage);
@@ -150,10 +149,10 @@ public class SocialMediaController {
     private void verifyAccount(Context ctx){
         Model.Account account = ctx.bodyAsClass(Account.class);
 
-        boolean result = accountService.verifyAccount(account);
+        Model.Account resultAccount = accountService.verifyAccount(account);
 
-        if (result) {
-            ctx.json(account);
+        if (resultAccount != null) {
+            ctx.json(resultAccount);
             ctx.status(200);
         } else {
             ctx.status(401);

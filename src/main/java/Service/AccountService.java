@@ -6,6 +6,6 @@ public interface AccountService {
 
     Account createAccount(Account account);
 
-    boolean verifyAccount(Account account);
+    Account verifyAccount(Account account);
     
 }

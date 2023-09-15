@@ -20,14 +20,13 @@ public class AccountSercviceImplementation implements AccountService {
     public Account createAccount(Account account) {
         if(!account.getUsername().isEmpty() && account.getPassword().length() >= 4 && usernameExist(account))
         {
-            System.out.println("Inside check ready to create");
             return accountDAO.createAccount(account);
         }
         return null;
     }
 
     @Override
-    public boolean verifyAccount(Account account) {
+    public Account verifyAccount(Account account) {
         return accountDAO.verifyAccount(account);
     }
 
