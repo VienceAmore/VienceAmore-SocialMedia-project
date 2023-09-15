@@ -103,7 +103,6 @@ public class SocialMediaController {
         else 
         {
             ctx.json(new ArrayList<Model.Message>());
-            System.out.println("Null list");
         }
     }
 

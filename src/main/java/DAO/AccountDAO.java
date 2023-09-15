@@ -12,7 +12,6 @@ public class AccountDAO {
     //create
     public Account createAccount(Account account){
         try{
-            System.out.println("Start to creating....");
             Connection connection = ConnectionUtil.getConnection();
             String sql = "INSERT INTO account(username, password) VALUES (?,?)";
 
