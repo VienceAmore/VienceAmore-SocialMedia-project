@@ -108,13 +108,11 @@ public class MessageDAO {
         
         try{
             Connection connection = ConnectionUtil.getConnection();
-            String sql = "UPDATE message SET message_text = ?, time_posted_epoch = ? WHERE message_id = ?";
+            String sql = "UPDATE message SET message_text = ? WHERE message_id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            //ps.setInt(1, message.getPosted_by());
             ps.setString(1, message.getMessage_text());
-            ps.setLong(2, message.getTime_posted_epoch());
-            ps.setInt(3, id);
+            ps.setInt(2, id);
 
             int numberOfUpdatedRows = ps.executeUpdate();
 
